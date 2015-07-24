@@ -1,0 +1,39 @@
+@import url("font-awesome.min.css");
+@import url("http://fonts.googleapis.com/css?family=Raleway:400,400italic,700,800");
+html {
+    background-color: #313a3d;
+    background-attachment: fixed,                       fixed;
+    background-image: url("images/overlay.png"), url("../../assets/img/bg.jpeg");
+    background-position: top left,                  center center;
+    background-repeat: repeat,                      none;
+    background-size: auto,                      cover;
+}
+
+body {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    color: #ffffff;
+    font-family: "Raleway", "Helvetica", sans-serif;    
+    font-size: 1.5em;
+}
+
+header {
+    vertical-align: middle;
+}
+
+ul.icons li {
+    display: inline-block;
+    padding: 0 1em 0 0;
+}
+
+.fa, #copyright {
+    text-decoration: none;
+    border-bottom: none;
+    position: relative;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.fa:hover {
+    color: rgba(255, 255, 255, 0.95);
+}
