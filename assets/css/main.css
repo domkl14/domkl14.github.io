@@ -1310,9 +1310,10 @@
 /* Basic */
 
 	html {
-		background-color: #8cd1a8;
+		/*background-color: #8cd1a8;*/
+		background-color: #555555;
 		background-attachment: fixed,						fixed;
-		/*background-image: url("images/overlay.png"), url("../../assets/img/bg.jpeg");*/
+		background-image: url("images/overlay.png"), url("../../assets/img/bg.jpg");
 		background-position: top left,					center center;
 		background-repeat: repeat,						none;
 		background-size: auto,						cover;
