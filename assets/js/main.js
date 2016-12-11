@@ -1,219 +1,121 @@
-/*
-	Highlights by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
+const LOAD_FADE_TIME = 1500;
+const SECTION_FADE_TIME = 300;
 
-(function($) {
+/**
+ * On DOM load
+ */
+document.addEventListener('DOMContentLoaded', function() {
+  $('#particles-js').animate({opacity: 0.8}, LOAD_FADE_TIME, function() {
+    $('.container').fadeIn(LOAD_FADE_TIME);
+  });
+  
+  $('#bio-link').click(function() {
+    if ($('#bio').css('display') == 'block') {
+      hideSections();
+    } else {
+      hideSections(SECTION_FADE_TIME, function() {
+        $('#bio').fadeIn(SECTION_FADE_TIME);
+      });
+    }
+  });
 
-	skel.breakpoints({
-		large: '(max-width: 1680px)',
-		medium: '(max-width: 980px)',
-		small: '(max-width: 736px)',
-		xsmall: '(max-width: 480px)'
-	});
+  $('#projects-link').click(function() {
+    if ($('#projects').css('display') == 'block') {
+      hideSections();
+    } else {
+      hideSections(SECTION_FADE_TIME, function() {
+        $('#projects').fadeIn(SECTION_FADE_TIME);  
+      });
+    }
+  });
 
-	$(function() {
+  $('#contact-link').click(function() {
+    if ($('#contact').css('display') == 'block') {
+      hideSections();
+    } else {
+      hideSections(SECTION_FADE_TIME, function() {
+        $('#contact').fadeIn(SECTION_FADE_TIME);  
+      });
+    }
+  });
+});
 
-		var	$window = $(window),
-			$body = $('body'),
-			$html = $('html');
+/**
+ * Hide all sections
+ * @param fade time, callback function
+ */
+function hideSections(time, callback) {
+  $('.section').fadeOut(time);  
+  if (callback) {
+    window.setTimeout(callback, time); 
+  }
+}
 
-		// Disable animations/transitions until the page has loaded.
-			$html.addClass('is-loading');
-
-			$window.on('load', function() {
-				window.setTimeout(function() {
-					$html.removeClass('is-loading');
-				}, 0);
-			});
-
-		// Touch mode.
-			if (skel.vars.mobile) {
-
-				var $wrapper;
-
-				// Create wrapper.
-					$body.wrapInner('<div id="wrapper" />');
-					$wrapper = $('#wrapper');
-
-					// Hack: iOS vh bug.
-						if (skel.vars.os == 'ios')
-							$wrapper
-								.css('margin-top', -25)
-								.css('padding-bottom', 25);
-
-					// Pass scroll event to window.
-						$wrapper.on('scroll', function() {
-							$window.trigger('scroll');
-						});
-
-				// Scrolly.
-					$window.on('load.hl_scrolly', function() {
-
-						$('.scrolly').scrolly({
-							speed: 1500,
-							parent: $wrapper,
-							pollOnce: true
-						});
-
-						$window.off('load.hl_scrolly');
-
-					});
-
-				// Enable touch mode.
-					$html.addClass('is-touch');
-
-			}
-			else {
-
-				// Scrolly.
-					$('.scrolly').scrolly({
-						speed: 1500
-					});
-
-			}
-
-		// Fix: Placeholder polyfill.
-			$('form').placeholder();
-
-		// Prioritize "important" elements on medium.
-			skel.on('+medium -medium', function() {
-				$.prioritize(
-					'.important\\28 medium\\29',
-					skel.breakpoint('medium').active
-				);
-			});
-
-		// Header.
-			var $header = $('#header'),
-				$headerTitle = $header.find('header'),
-				$headerContainer = $header.find('.container');
-
-			// Make title fixed.
-				if (!skel.vars.mobile) {
-
-					$window.on('load.hl_headerTitle', function() {
-
-						skel.on('-medium !medium', function() {
-
-							$headerTitle
-								.css('position', 'fixed')
-								.css('height', 'auto')
-								.css('top', '50%')
-								.css('left', '0')
-								.css('width', '100%')
-								.css('margin-top', ($headerTitle.outerHeight() / -2));
-
-						});
-
-						skel.on('+medium', function() {
-
-							$headerTitle
-								.css('position', '')
-								.css('height', '')
-								.css('top', '')
-								.css('left', '')
-								.css('width', '')
-								.css('margin-top', '');
-
-						});
-
-						$window.off('load.hl_headerTitle');
-
-					});
-
-				}
-
-			// Scrollex.
-				skel.on('-small !small', function() {
-					$header.scrollex({
-						terminate: function() {
-
-							$headerTitle.css('opacity', '');
-
-						},
-						scroll: function(progress) {
-
-							// Fade out title as user scrolls down.
-								if (progress > 0.5)
-									x = 1 - progress;
-								else
-									x = progress;
-
-								$headerTitle.css('opacity', Math.max(0, Math.min(1, x * 2)));
-
-						}
-					});
-				});
-
-				skel.on('+small', function() {
-
-					$header.unscrollex();
-
-				});
-
-		// Main sections.
-			$('.main').each(function() {
-
-				var $this = $(this),
-					$primaryImg = $this.find('.image.primary > img'),
-					$bg,
-					options;
-
-				// No primary image? Bail.
-					if ($primaryImg.length == 0)
-						return;
-
-				// Hack: IE8 fallback.
-					if (skel.vars.IEVersion < 9) {
-
-						$this
-							.css('background-image', 'url("' + $primaryImg.attr('src') + '")')
-							.css('-ms-behavior', 'url("css/ie/backgroundsize.min.htc")');
-
-						return;
-
-					}
-
-				// Create bg and append it to body.
-					$bg = $('<div class="main-bg" id="' + $this.attr('id') + '-bg"></div>')
-						.css('background-image', (
-							'url("css/images/overlay.png"), url("' + $primaryImg.attr('src') + '")'
-						))
-						.appendTo($body);
-
-				// Scrollex.
-					options = {
-						mode: 'middle',
-						delay: 200,
-						top: '-10vh',
-						bottom: '-10vh'
-					};
-
-					if (skel.canUse('transition')) {
-
-						options.init = function() { $bg.removeClass('active'); };
-						options.enter = function() { $bg.addClass('active'); };
-						options.leave = function() { $bg.removeClass('active'); };
-
-					}
-					else {
-
-						$bg
-							.css('opacity', 1)
-							.hide();
-
-						options.init = function() { $bg.fadeOut(0); };
-						options.enter = function() { $bg.fadeIn(400); };
-						options.leave = function() { $bg.fadeOut(400); };
-
-					}
-
-					$this.scrollex(options);
-
-			});
-
-	});
-
-})(jQuery);
+particlesJS('particles-js',
+  {
+    "particles": {
+      "number": {
+        "value": 70,
+        "density": {
+          "enable": true,
+          "value_area": 800
+        }
+      },
+      "color": {
+        "value": "#330000"
+      },
+      "shape": {
+        "type": "circle"
+      },
+      "opacity": {
+        "value": 0.5
+      },
+      "size": {
+        "value": 2.5,
+        "random": true
+      },
+      "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#330000",
+        "opacity": 0.4,
+        "width": 0.6
+      },
+      "move": {
+        "enable": true,
+        "speed": 3,
+        "direction": "right",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "attract": {
+          "enable": false,
+          "rotateX": 600,
+          "rotateY": 1200
+        }
+      }
+    },
+    "interactivity": {
+      "detect_on": "canvas",
+      "events": {
+        "onhover": {
+          "enable": true,
+          "mode": "repulse"
+        },
+        "resize": true
+      },
+      "modes": {
+        "repulse": {
+          "distance": 150
+        },
+        "push": {
+          "particles_nb": 0
+        },
+        "remove": {
+          "particles_nb": 0
+        }
+      }
+    },
+    "retina_detect": true
+  }
+);
