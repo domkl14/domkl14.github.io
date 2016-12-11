@@ -9,36 +9,26 @@ document.addEventListener('DOMContentLoaded', function() {
     $('.container').fadeIn(LOAD_FADE_TIME);
   });
   
-  $('#bio-link').click(function() {
-    if ($('#bio').css('display') == 'block') {
-      hideSections();
-    } else {
-      hideSections(SECTION_FADE_TIME, function() {
-        $('#bio').fadeIn(SECTION_FADE_TIME);
-      });
-    }
-  });
-
-  $('#projects-link').click(function() {
-    if ($('#projects').css('display') == 'block') {
-      hideSections();
-    } else {
-      hideSections(SECTION_FADE_TIME, function() {
-        $('#projects').fadeIn(SECTION_FADE_TIME);  
-      });
-    }
-  });
-
-  $('#contact-link').click(function() {
-    if ($('#contact').css('display') == 'block') {
-      hideSections();
-    } else {
-      hideSections(SECTION_FADE_TIME, function() {
-        $('#contact').fadeIn(SECTION_FADE_TIME);  
-      });
-    }
-  });
+  $('#bio-link').click(function() {clickHandler($('#bio-link'), $('#bio'))});
+  $('#projects-link').click(function() {clickHandler($('#projects-link'), $('#projects'))});
+  $('#contact-link').click(function() {clickHandler($('#contact-link'), $('#contact'))});
 });
+
+/**
+ * Click handler
+ * @param jquery element for section link and section
+ */
+function clickHandler(sectionLink, section) {
+  resetSectionLinks();
+  if (section.css('display') == 'block') {
+    hideSections();
+  } else {
+    sectionLink.css('color', '#640000').unbind('mouseenter mouseleave');
+    hideSections(SECTION_FADE_TIME, function() {
+      section.fadeIn(SECTION_FADE_TIME);  
+    });
+  }
+}
 
 /**
  * Hide all sections
@@ -49,6 +39,14 @@ function hideSections(time, callback) {
   if (callback) {
     window.setTimeout(callback, time); 
   }
+}
+
+/**
+ * Reset section link colors
+ */
+function resetSectionLinks() {
+  $('.section-link').css({'color': '#000000'}).hover(function() {
+    $(this).css('color', "#640000")}, function() {$(this).css({'color': '#000000'})});
 }
 
 particlesJS('particles-js',
@@ -62,7 +60,7 @@ particlesJS('particles-js',
         }
       },
       "color": {
-        "value": "#330000"
+        "value": "#500000"
       },
       "shape": {
         "type": "circle"
@@ -77,7 +75,7 @@ particlesJS('particles-js',
       "line_linked": {
         "enable": true,
         "distance": 150,
-        "color": "#330000",
+        "color": "#500000",
         "opacity": 0.4,
         "width": 0.6
       },
