@@ -5,7 +5,7 @@ const SECTION_FADE_TIME = 300;
  * On DOM load
  */
 document.addEventListener('DOMContentLoaded', function() {
-  $('#particles-js').animate({opacity: 0.8}, LOAD_FADE_TIME, function() {
+  $('#particles-js').animate({opacity: 1}, LOAD_FADE_TIME, function() {
     $('.container').fadeIn(LOAD_FADE_TIME);
   });
   
