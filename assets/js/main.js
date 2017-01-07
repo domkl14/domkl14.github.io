@@ -46,7 +46,7 @@ function hideSections(time, callback) {
  */
 function resetSectionLinks() {
   $('.section-link').css({'color': '#000000'}).hover(function() {
-    $(this).css('color', "#640000")}, function() {$(this).css({'color': '#000000'})});
+    $(this).css('color', '#640000')}, function() {$(this).css({'color': '#000000'})});
 }
 
 particlesJS('particles-js',
