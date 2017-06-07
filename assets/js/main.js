@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $('.container').fadeIn(LOAD_FADE_TIME);
   });
   
-  $('#bio-link').click(function() {clickHandler($('#bio-link'), $('#bio'))});
+  $('#about-link').click(function() {clickHandler($('#about-link'), $('#about'))});
   $('#projects-link').click(function() {clickHandler($('#projects-link'), $('#projects'))});
   $('#contact-link').click(function() {clickHandler($('#contact-link'), $('#contact'))});
 });
